@@ -7851,7 +7851,6 @@ abstract class CommonObject
 						$InfoFieldList[4] = '('.$reg[1].':'.$reg[2].':'.$reg[3].')';
 					}
 
-					//var_dump($InfoFieldList);
 				}
 
 				//$Usf = empty($paramoptions[1]) ? '' :$paramoptions[1];
@@ -8041,6 +8040,7 @@ abstract class CommonObject
 			}
 
 			if (is_array($param['options'])) {
+
 				$tmpparamoptions = array_keys($param['options']);
 				$paramoptions = preg_split('/[\r\n]+/', $tmpparamoptions[0]);
 
@@ -8143,9 +8143,9 @@ abstract class CommonObject
 						if (strpos($InfoFieldList[4], 'extra') !== false) {
 							$sql .= ' as main, ' . $this->db->sanitize($this->db->prefix() . $InfoFieldList[0]) . '_extrafields as extra';
 							$sqlwhere .= " WHERE extra.fk_object = main." . $this->db->sanitize($InfoFieldList[2]);
-							$sqlwhere .= " AND " . $InfoFieldList[4];
+							$sqlwhere .= " AND " . forgeSQLFromUniversalSearchCriteria($InfoFieldList[4], $errstr, 1);
 						} else {
-							$sqlwhere .= " WHERE " . $InfoFieldList[4];
+							$sqlwhere .= " WHERE " . forgeSQLFromUniversalSearchCriteria($InfoFieldList[4], $errstr, 1);
 						}
 					} else {
 						$sqlwhere .= ' WHERE 1=1';
